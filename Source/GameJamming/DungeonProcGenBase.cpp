@@ -260,3 +260,29 @@ void ADungeonProcGenBase::LocateWalls(FVector2D MapPos)
 	  LeftWall = true;
    }
 }
+
+void ADungeonProcGenBase::LocateDoors(FVector2D MapPos)
+{
+	BottomDoor = false;
+	TopDoor = false;
+	LeftDoor = false;
+	RightDoor = false;
+
+	if (MapPos.X <= 0 || MapPos.X >= MapWidth - 1 || MapPos.Y <= 0 || MapPos.Y >= MapLength - 1) { return; }
+	if (CurrentMap.FindRef(MapPos + UpY) == 2 && CurrentMap.FindRef(MapPos + DiagDownXUpY) == 1 && CurrentMap.FindRef(MapPos + DiagUpXY) == 1)
+	{
+		RightDoor = true;
+	}
+	if (CurrentMap.FindRef(MapPos + DownY) == 2 && CurrentMap.FindRef(MapPos + DiagDownXY) == 1 && CurrentMap.FindRef(MapPos + DiagUPXDownY) == 1)
+	{
+		LeftDoor = true;
+	}
+	if (CurrentMap.FindRef(MapPos + UpX) == 2 && CurrentMap.FindRef(MapPos + DiagUpXY) == 1 && CurrentMap.FindRef(MapPos + DiagUPXDownY) == 1)
+	{
+		BottomDoor = true;
+	}
+	if (CurrentMap.FindRef(MapPos + DownX) == 2 && CurrentMap.FindRef(MapPos + DiagDownXUpY) == 1 && CurrentMap.FindRef(MapPos + DiagDownXY) == 1)
+	{
+		TopDoor = true;
+	}
+}

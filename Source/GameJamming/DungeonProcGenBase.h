@@ -137,6 +137,11 @@ public:
 	FVector2D DownX{ -1,0 };
 	FVector2D DownY{ 0,-1 };
 
+	FVector2D DiagUpXY{ 1,1 };
+	FVector2D DiagUPXDownY{ 1,-1 };
+	FVector2D DiagDownXUpY{ -1,1 };
+	FVector2D DiagDownXY{ -1,-1 };
+
 	UPROPERTY(BlueprintReadOnly)
 	bool TopWall;
 	UPROPERTY(BlueprintReadOnly)
@@ -150,6 +155,19 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void LocateWalls(FVector2D MapPos);
+
+
+	UPROPERTY(BlueprintReadOnly)
+		bool TopDoor;
+	UPROPERTY(BlueprintReadOnly)
+		bool BottomDoor;
+	UPROPERTY(BlueprintReadOnly)
+		bool LeftDoor;
+	UPROPERTY(BlueprintReadOnly)
+		bool RightDoor;
+
+	UFUNCTION(BlueprintCallable)
+		void LocateDoors(FVector2D MapPos);
 
 
 	TArray<FVector2D> MapDirections{ UpX, UpY, DownX, DownY };
