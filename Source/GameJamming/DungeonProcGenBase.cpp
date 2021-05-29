@@ -66,6 +66,15 @@ bool ADungeonProcGenBase::Search2D(int c, int r, TArray<int> Pattern)
 		return (Count == 9);
 }
 
+bool ADungeonProcGenBase::FloorCheck(FVector2D MapPos)
+{
+	if (CurrentMap.FindRef(MapPos) != 0 && (CountSideNeigbhors(MapPos.X, MapPos.Y) > 1 && CountDiagNeigbhors(MapPos.X, MapPos.Y) >= 1) || (CountSideNeigbhors(MapPos.X, MapPos.Y) >= 1 && CountDiagNeigbhors(MapPos.X, MapPos.Y) > 1))
+	{
+		return true;
+	}
+	return false;
+}
+
 void ADungeonProcGenBase::DrawAtPosition_Implementation()
 {
 
@@ -226,4 +235,28 @@ bool ADungeonProcGenBase::OutOfBoundsCheck(int x, int y)
 		Out = (x < 1 || x > MapWidth - 1 || y < 1 || y > MapLength - 1);
 	}
 	return Out;
+}
+
+void ADungeonProcGenBase::LocateWalls(FVector2D MapPos)
+{
+   BottomWall = false;
+   TopWall = false;
+   LeftWall = false;
+   RightWall = false;
+
+   if(MapPos.X <= 0 || MapPos.X >= MapWidth -1 || MapPos.Y <= 0 || MapPos.Y >= MapLength -1){return;}
+   if(CurrentMap.FindRef(FVector2D(MapPos + UpY)) == 1)
+   {RightWall = true ;}
+   if (CurrentMap.FindRef(MapPos + UpX) == 1)
+   {
+	   TopWall = true;
+   }
+   if (CurrentMap.FindRef(MapPos + DownX) == 1)
+   {
+	  BottomWall = true;
+   }
+   if (CurrentMap.FindRef(MapPos + DownY) == 1)
+   {
+	  LeftWall = true;
+   }
 }

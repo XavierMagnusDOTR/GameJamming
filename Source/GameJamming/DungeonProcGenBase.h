@@ -95,6 +95,10 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
+	bool FloorCheck(FVector2D MapPos);
+
+
+	UFUNCTION(BlueprintCallable)
 		float GetTileScaleX() { return TileXScale; };
 
 	UFUNCTION(BlueprintCallable)
@@ -132,6 +136,20 @@ public:
 	FVector2D UpY{ 0,1 };
 	FVector2D DownX{ -1,0 };
 	FVector2D DownY{ 0,-1 };
+
+	UPROPERTY(BlueprintReadOnly)
+	bool TopWall;
+	UPROPERTY(BlueprintReadOnly)
+	bool BottomWall;
+	UPROPERTY(BlueprintReadOnly)
+	bool LeftWall;
+	UPROPERTY(BlueprintReadOnly)
+	bool RightWall;
+
+
+
+	UFUNCTION(BlueprintCallable)
+	void LocateWalls(FVector2D MapPos);
 
 
 	TArray<FVector2D> MapDirections{ UpX, UpY, DownX, DownY };
